@@ -13,7 +13,7 @@ jobs:
 
       - name: Decode release.jks from base64
         run: |
-          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 -d > release.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release.jks
 
       - name: Inspect JKS
         run: |

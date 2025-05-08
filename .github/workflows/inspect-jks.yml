@@ -1,0 +1,22 @@
+name: Inspect release.jks
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Decode release.jks from base64
+        run: |
+          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 -d > release.jks
+
+      - name: Inspect JKS
+        run: |
+          keytool -list -v \
+            -keystore release.jks \
+            -storepass "${{ secrets.SIGNING_KEY_PASSWORD }}"
